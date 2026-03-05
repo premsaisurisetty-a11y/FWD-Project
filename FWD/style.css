@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Topic: Internet & Web Concepts | CO Number: CO1 */
+/* Topic: Web hosting and domain concepts | CO Number: CO1 */
+
+:root {
+    --primary-color: #0891b2;
+    --secondary-color: #10b981;
+    --background-dark: #f8fafc;
+    --surface-dark: #ffffff;
+    --text-light: #0f172a;
+    --text-dim: #64748b;
+    --sidebar-active-bg: #ecfeff;
+}
+
+/* Topic: Introductory CSS Styling | CO Number: CO1 */
+/* Topic: CSS syntax | CO Number: CO1 */
+/* Topic: Color representations | CO Number: CO1 */
+/* Topic: CSS custom properties | CO Number: CO2 */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    overflow: hidden;
+    /* App-like feel */
+}
+
+/* Topic: Core selectors | CO Number: CO1 */
+/* Topic: Typography essentials | CO Number: CO1 */
+
+/* Glassmorphism utility */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* Topic: Foundational spacing (padding, margin, border) | CO Number: CO1 */
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Topic: CSS functions | CO Number: CO2 */
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Topic: CSS transitions | CO Number: CO2 */
+/* Topic: CSS animations | CO Number: CO2 */
+
+/* Navigation */
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    color: var(--text-dim);
+    transition: all 0.2s ease;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    background-color: #f8fafc;
+    color: var(--text-light);
+}
+
+.nav-item.active {
+    background-color: var(--sidebar-active-bg);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.nav-item i {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+}
+
+.logo-icon {
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(8, 145, 178, 0.15);
+    border: 2px solid #ecfeff;
+    border-radius: 12px;
+    color: var(--primary-color);
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Topic: CSS Grid | CO Number: CO2 */
+/* Topic: Flexbox | CO Number: CO2 */
+
+/* Course Cards */
+.course-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+
+/* Topic: Theme management using CSS custom properties | CO Number: CO2 */
+
+.course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.course-image {
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Topic: Media tags | CO Number: CO2 */
+
+/* Module Items */
+.module-item {
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+}
+
+/* Topic: Styling for interactivity | CO Number: CO2 */
+
+.module-item:hover {
+    background: rgba(8, 145, 178, 0.05);
+}
+
+.module-item.active {
+    background: rgba(8, 145, 178, 0.1);
+    border-color: rgba(8, 145, 178, 0.2);
+    color: var(--primary-color);
+}
+
+.module-item.completed {
+    color: var(--secondary-color);
+}
+
+/* Problem Items */
+.problem-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.problem-item:hover {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.difficulty-badge {
+    padding: 4px 8px;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Topic: Advanced selectors | CO Number: CO2 */
+
+.difficulty-easy {
+    background: rgba(16, 185, 129, 0.1);
+    color: #34d399;
+}
+
+.difficulty-medium {
+    background: rgba(245, 158, 11, 0.1);
+    color: #fbbf24;
+}
+
+.difficulty-hard {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+}
+
+.status-solved {
+    color: var(--secondary-color);
+}
+
+.status-unsolved {
+    color: var(--text-dim);
+}
+
+/* Typography in Content */
+.prose h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.prose h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-light);
+}
+
+.prose p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+    color: var(--text-dim);
+}
+
+.prose code {
+    background: rgba(8, 145, 178, 0.1);
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9em;
+    color: var(--primary-color);
+}
+
+.prose pre {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.prose pre code {
+    background: transparent;
+    padding: 0;
+    color: #334155;
+}
+
+.compiler-editor {
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.6;
+}
+
+.compiler-editor:focus {
+    box-shadow: inset 0 0 10px rgba(8, 145, 178, 0.1);
+}
+
+/* Topic: Media queries | CO Number: CO2 */
+/* Topic: Responsive layouts without frameworks | CO Number: CO2 */
