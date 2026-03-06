@@ -2250,10 +2250,8 @@ function initApp() {
     const user = store.getCurrentUser();
     if (user) {
         setupUserUI(user);
-        navigateTo('dashboard');
-    } else {
-        navigateTo('home');
     }
+    navigateTo('home');
 }
 
 // --- View Navigation ---
