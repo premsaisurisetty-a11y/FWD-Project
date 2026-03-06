@@ -2108,6 +2108,20 @@ class Store {
                     if (!u.joinedAt) u.joinedAt = 'March 2026';
                 });
             }
+
+            // Migration: Convert old string progress to object with timestamp
+            if (state && state.progress) {
+                Object.keys(state.progress).forEach(userId => {
+                    const up = state.progress[userId];
+                    if (up.modules && up.modules.length > 0 && typeof up.modules[0] === 'string') {
+                        up.modules = up.modules.map(id => ({ id, timestamp: new Date().toISOString() }));
+                    }
+                    if (up.problems && up.problems.length > 0 && typeof up.problems[0] === 'string') {
+                        up.problems = up.problems.map(id => ({ id, timestamp: new Date().toISOString() }));
+                    }
+                });
+            }
+
             return state;
         } catch (e) {
             console.error("Failed to load state:", e);
@@ -2200,8 +2214,8 @@ class Store {
         const user = this.getCurrentUser();
         if (!user) return;
         const progress = this.getUserProgress(user.id);
-        if (!progress.modules.includes(moduleId)) {
-            progress.modules.push(moduleId);
+        if (!progress.modules.find(m => m.id === moduleId)) {
+            progress.modules.push({ id: moduleId, timestamp: new Date().toISOString() });
             this.saveState();
         }
     }
@@ -2210,8 +2224,8 @@ class Store {
         const user = this.getCurrentUser();
         if (!user) return;
         const progress = this.getUserProgress(user.id);
-        if (!progress.problems.includes(problemId)) {
-            progress.problems.push(problemId);
+        if (!progress.problems.find(p => p.id === problemId)) {
+            progress.problems.push({ id: problemId, timestamp: new Date().toISOString() });
             this.saveState();
         }
     }
@@ -2559,7 +2573,7 @@ function renderDashboard() {
     const container = document.getElementById('dashboard-courses');
     container.innerHTML = COURSES.map(c => {
         const courseModules = MODULES.filter(m => m.courseId === c.id);
-        const completedInCourse = progress.modules.filter(mId => courseModules.find(m => m.id === mId)).length;
+        const completedInCourse = progress.modules.filter(mObj => courseModules.find(m => m.id === mObj.id)).length;
         const pct = courseModules.length > 0 ? Math.round((completedInCourse / courseModules.length) * 100) : 0;
 
         return `
@@ -2585,13 +2599,33 @@ function initChart(progress) {
     const ctx = document.getElementById('activityChart').getContext('2d');
     if (window.myChart) window.myChart.destroy();
 
+    // Calculate real activity for the current week
+    const activityData = [0, 0, 0, 0, 0, 0, 0]; // Mon-Sun
+    const now = new Date();
+    const currentDay = now.getDay(); // 0 is Sun, 1-6 is Mon-Sat
+    const diffToMonday = now.getDate() - currentDay + (currentDay === 0 ? -6 : 1);
+    const monday = new Date(now.setDate(diffToMonday));
+    monday.setHours(0, 0, 0, 0);
+
+    const aggregate = (item) => {
+        const itemDate = new Date(item.timestamp);
+        if (itemDate >= monday) {
+            const d = itemDate.getDay(); // 0-6
+            const idx = d === 0 ? 6 : d - 1; // Map Sun(0)->6, Mon(1)->0...
+            activityData[idx]++;
+        }
+    };
+
+    progress.modules.forEach(aggregate);
+    progress.problems.forEach(aggregate);
+
     window.myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
             datasets: [{
                 label: 'Activity',
-                data: [2, 5, 3, progress.modules.length, 4, 1, 0],
+                data: activityData,
                 backgroundColor: '#0891b2',
                 borderRadius: 4
             }]
@@ -2604,7 +2638,12 @@ function initChart(progress) {
                 y: {
                     beginAtZero: true,
                     grid: { color: '#f1f5f9' },
-                    ticks: { color: '#94a3b8', font: { weight: '600' } }
+                    ticks: {
+                        color: '#94a3b8',
+                        font: { weight: '600' },
+                        stepSize: 1,
+                        precision: 0
+                    }
                 },
                 x: {
                     grid: { display: false },
@@ -2661,7 +2700,7 @@ function renderCurriculum() {
     const filteredModules = MODULES.filter(m => m.courseId === currentCourseId);
 
     list.innerHTML = filteredModules.map((m, idx) => {
-        const isCompleted = progress.modules.includes(m.id);
+        const isCompleted = progress.modules.find(mod => mod.id === m.id);
         const isActive = idx === currentModuleIndex;
         return `
     <div class="module-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}" onclick="loadModule(${idx})">
@@ -2739,7 +2778,7 @@ function renderProblems() {
     const progress = store.getUserProgress(user.id);
 
     list.innerHTML = PROBLEMS.map(p => {
-        const isSolved = progress.problems.includes(p.id);
+        const isSolved = progress.problems.find(prob => prob.id === p.id);
         const difficultyClass = `difficulty-${p.difficulty.toLowerCase()}`;
         return `
     <div class="bg-white border border-slate-100 shadow-sm p-5 rounded-3xl flex items-center justify-between problem-item cursor-pointer hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-slate-200/50" onclick="openEditor('${p.id}')">
@@ -3028,23 +3067,25 @@ function renderAdminDashboard() {
             const p = progress[user.id];
             if (p) {
                 const initials = user.fullname ? user.fullname.split(' ').map(w => w[0]).join('').toUpperCase() : user.username[0].toUpperCase();
-                (p.problems || []).forEach(problemId => {
-                    const problem = PROBLEMS.find(pr => pr.id === problemId);
+                (p.problems || []).forEach(probObj => {
+                    const probId = typeof probObj === 'string' ? probObj : probObj.id;
+                    const problem = PROBLEMS.find(pr => pr.id === probId);
                     activityItems.push(`
                         <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
                             <div class="flex items-center space-x-3">
                                 <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">${initials}</div>
                                 <div>
                                     <p class="text-sm font-bold text-slate-900">${user.fullname || user.username}</p>
-                                    <p class="text-xs text-slate-500">Solved "${problem ? problem.title : problemId}"</p>
+                                    <p class="text-xs text-slate-500">Solved "${problem ? problem.title : probId}"</p>
                                 </div>
                             </div>
                             <span class="text-[10px] font-bold text-slate-400">Recent</span>
                         </div>`);
                 });
-                (p.modules || []).forEach(moduleId => {
-                    const mod = MODULES.find(m => m.id === moduleId);
-                    const modTitle = mod ? mod.title : moduleId;
+                (p.modules || []).forEach(modObj => {
+                    const modId = typeof modObj === 'string' ? modObj : modObj.id;
+                    const mod = MODULES.find(m => m.id === modId);
+                    const modTitle = mod ? mod.title : modId;
                     activityItems.push(`
                         <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
                             <div class="flex items-center space-x-3">
