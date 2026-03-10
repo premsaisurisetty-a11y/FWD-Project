@@ -2,14 +2,21 @@
 /* Topic: Internet & Web Concepts | CO Number: CO1 */
 /* Topic: Web hosting and domain concepts | CO Number: CO1 */
 
+/* CO1: Color representations */
+/* CO1: Introductory CSS Styling */
 :root {
-    --primary-color: #0891b2;
-    --secondary-color: #10b981;
-    --background-dark: #f8fafc;
-    --surface-dark: #ffffff;
-    --text-light: #0f172a;
+    --primary: #0891b2;
+    --primary-light: #22d3ee;
+    --primary-dark: #155e75;
+    --secondary: #10b981;
+    --accent: #f59e0b;
+    --background: #f8fafc;
+    --surface: #ffffff;
+    --text-main: #0f172a;
     --text-dim: #64748b;
-    --sidebar-active-bg: #ecfeff;
+    --border-soft: rgba(0, 0, 0, 0.05);
+    --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+    --radius-premium: 2rem;
 }
 
 /* Topic: Introductory CSS Styling | CO Number: CO1 */
@@ -19,27 +26,31 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--background-dark);
-    color: var(--text-light);
-    overflow: hidden;
-    /* App-like feel */
+    background-color: var(--background);
+    color: var(--text-main);
+    letter-spacing: -0.01em;
 }
 
-/* Topic: Core selectors | CO Number: CO1 */
-/* Topic: Typography essentials | CO Number: CO1 */
+.premium-card {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-premium);
+    border-radius: var(--radius-premium);
+}
 
-/* Glassmorphism utility */
-.glass {
+.glass-panel {
     background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
+
+/* Topic: Typography | CO Number: CO2 */
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -47,12 +58,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #334155;
-    border-radius: 3px;
+    background: #cbd5e1;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #475569;
+    background: #94a3b8;
 }
 
 /* Topic: Foundational spacing (padding, margin, border) | CO Number: CO1 */
@@ -83,34 +94,45 @@ body {
 /* Topic: CSS transitions | CO Number: CO2 */
 /* Topic: CSS animations | CO Number: CO2 */
 
+/* CO2: Styling for interactivity */
+/* CO2: CSS transitions */
 /* Navigation */
 .nav-item {
     display: flex;
     align-items: center;
-    padding: 12px 16px;
-    border-radius: 12px;
+    padding: 16px 20px;
+    border-radius: 20px;
     cursor: pointer;
     color: var(--text-dim);
-    transition: all 0.2s ease;
-    margin-bottom: 4px;
-    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: 1px solid transparent;
 }
 
 .nav-item:hover {
-    background-color: #f8fafc;
-    color: var(--text-light);
+    background-color: rgba(8, 145, 178, 0.05);
+    color: var(--primary);
+    transform: translateX(6px);
 }
 
 .nav-item.active {
-    background-color: var(--sidebar-active-bg);
-    color: var(--primary-color);
-    font-weight: 600;
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 10px 25px -5px rgba(8, 145, 178, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    border-color: rgba(8, 145, 178, 0.1);
 }
 
 .nav-item i {
-    width: 20px;
-    height: 20px;
-    margin-right: 12px;
+    width: 22px;
+    height: 22px;
+    margin-right: 14px;
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover i {
+    transform: scale(1.1);
 }
 
 .logo-icon {
@@ -121,6 +143,8 @@ body {
     color: var(--primary-color);
 }
 
+/* CO2: CSS Grid */
+/* CO2: Flexbox */
 /* Dashboard Grid */
 .dashboard-grid {
     display: grid;
@@ -139,6 +163,7 @@ body {
 }
 
 /* Topic: Theme management using CSS custom properties | CO Number: CO2 */
+/* Topic: SCSS basics (Modular Structure) | CO Number: CO2 */
 
 .course-card:hover {
     transform: translateY(-4px);
@@ -165,6 +190,7 @@ body {
 }
 
 /* Topic: Styling for interactivity | CO Number: CO2 */
+/* Topic: Accessibility styling hints | CO Number: CO2 */
 
 .module-item:hover {
     background: rgba(8, 145, 178, 0.05);
@@ -199,6 +225,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+/* CO2: Advanced selectors */
 .difficulty-badge {
     padding: 4px 8px;
     border-radius: 99px;
@@ -233,6 +260,7 @@ body {
 }
 
 /* Typography in Content */
+/* CO2: Typography */
 .prose h2 {
     font-size: 1.5rem;
     font-weight: 700;

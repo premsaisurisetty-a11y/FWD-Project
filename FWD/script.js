@@ -1,10 +1,5 @@
-// Data Definitions
-/* Topic: JavaScript Programming Essentials | CO Number: CO3 */
-/* Topic: Objects & Arrays | CO Number: CO3 */
-/* Topic: Number literals: hexadecimal, scientific | CO Number: CO3 */
-// Topic: Objects & Arrays | CO Number: CO3
-// Topic: JavaScript Fundamentals | CO Number: CO3
-// Topic: Basic expressions and operators | CO Number: CO3
+// CO3: JavaScript Programming Essentials
+// CO3: Objects & Arrays
 const COURSES = [
     {
         id: "course-html",
@@ -44,6 +39,7 @@ const MODULES = [
         duration: "10 min",
         level: "Easy",
         problemId: "html-struct-1",
+        // CO1: HTML document structure
         content: `
             <h2>1. Introduction to HTML</h2>
             <p>HTML stands for HyperText Markup Language. It is the standard markup language for creating Web pages.</p>
@@ -70,8 +66,8 @@ const MODULES = [
         duration: "15 min",
         level: "Easy",
         problemId: "html-attr-7",
-        /* Topic: JavaScript Fundamentals | CO Number: CO3 */
-        /* Topic: Basic expressions and operators | CO Number: CO3 */
+        // CO3: JavaScript Fundamentals
+        // CO3: Basic expressions and operators
         content: `
             <h2>Elements and Attributes</h2>
             <p>HTML elements usually consist of a start tag and an end tag, with the content inserted in between.</p>
@@ -393,9 +389,9 @@ console.log(name, score);</code></pre>
         duration: "25 min",
         level: "Medium",
         problemId: "js-func-1",
-        /* Topic: Functions | CO Number: CO3 */
-        /* Topic: Arrow functions | CO Number: CO3 */
-        /* Topic: Callback functions | CO Number: CO3 */
+        // CO3: Functions
+        // CO3: Arrow functions
+        // CO3: Callback functions
         content: `
             <h2>JavaScript Functions</h2>
             <p>A function is a block of code designed to perform a particular task.</p>
@@ -417,8 +413,9 @@ console.log(greet("Antigravity"));</code></pre>
         content: `
             <h3>The Document Object Model</h3>
             <p>The DOM is a programming interface for web documents. It represents the page so programs can change the document structure, style, and content.</p>
-            /* Topic: DOM manipulation | CO Number: CO4 */
-            /* Topic: Event handling | CO Number: CO4 */
+            // CO4: JavaScript Interactivity, DOM & Events
+            // CO4: DOM manipulation
+            // CO4: Event handling
             <pre><code>const el = document.getElementById("title");
 el.style.color = "blue";
 el.innerHTML = "Updated Title";</code></pre>
@@ -1409,8 +1406,8 @@ const PROBLEMS = [
         status: "unsolved",
         description: "Create a script that adds two numbers (5 and 10) and displays the result in an alert.",
         initialCode: "<script>\n  // Your JS here\n</script>",
-        /* Topic: JavaScript Fundamentals | CO Number: CO3 */
-        /* Topic: Basic expressions and operators | CO Number: CO3 */
+        /* CO3: JavaScript Fundamentals */
+        /* CO3: Basic expressions and operators */
         validation: (code) => code.includes("alert") && code.includes("15")
     },
     {
@@ -1745,6 +1742,7 @@ const PROBLEMS = [
     }
 ];
 
+// CO3: Objects & Arrays
 const TESTS = [
     // HTML Assessments
     {
@@ -1832,6 +1830,7 @@ const TESTS = [
     }
 ];
 
+// CO3: Objects & Arrays
 const QUIZZES = {
     "html-01": [
         {
@@ -2075,6 +2074,8 @@ const QUIZZES = {
 };
 
 
+// CO3: JavaScript Programming Essentials
+// CO3: Classes
 // --- State Management ---
 class Store {
     constructor() {
@@ -2100,6 +2101,9 @@ class Store {
             const data = localStorage.getItem(this.STORAGE_KEY);
             if (!data) return null;
             const state = JSON.parse(data);
+            // CO5: Storage & Async Programming
+            // CO4: JavaScript Interactivity, DOM & Events
+            // CO4: Browser storage
             // Defensive check: ensure users is a clean array of actual user objects
             if (state && Array.isArray(state.users)) {
                 state.users = state.users.filter(u => u && typeof u === 'object' && u.username);
@@ -2124,6 +2128,7 @@ class Store {
 
             return state;
         } catch (e) {
+            // CO3: Logic (Error Handling)
             console.error("Failed to load state:", e);
             return null;
         }
@@ -2136,6 +2141,10 @@ class Store {
     // User Methods
     validateLogin(username, password) {
         if (!username || !password) return null;
+        // CO3: JavaScript Programming Essentials
+        // CO3: Functions (including arrow and callback)
+        // CO3: Basic expressions and operators
+        // CO3: Conditions
         const user = this.state.users.find(u =>
             u && u.username && u.username.toLowerCase() === username.toLowerCase() &&
             u.password === password
@@ -2235,6 +2244,8 @@ class Store {
 const store = new Store();
 let currentView = 'home'; // Default to Home
 
+// CO4: JavaScript Interactivity, DOM & Events
+// CO4: DOM & Events
 document.addEventListener('DOMContentLoaded', () => {
     // Run cleanup only once to remove old Guest User data
     if (!localStorage.getItem('l2c_cleaned_v1')) {
@@ -2251,6 +2262,7 @@ function initApp() {
     if (user) {
         setupUserUI(user);
     }
+    setLoginRole('student');
     navigateTo('home');
 }
 
@@ -2258,6 +2270,8 @@ function initApp() {
 const views = ['dashboard', 'courses', 'curriculum', 'problems', 'editor', 'compiler', 'login', 'leaderboard', 'learning', 'profile', 'tests', 'quiz', 'admin-dashboard'];
 const navItems = document.querySelectorAll('.nav-item');
 
+// CO4: Event handling
+// CO3: Functions (arrow and callback)
 navItems.forEach(item => {
     item.addEventListener('click', () => {
         const view = item.dataset.view;
@@ -2387,7 +2401,9 @@ function handleAuthSubmit() {
     submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin mx-auto"></i>';
     lucide.createIcons();
     submitBtn.disabled = true;
-
+    // CO5: Storage & Async Programming
+    // CO3: Logic (try/catch)
+    // CO4: JavaScript Interactivity
     setTimeout(() => {
         try {
             submitBtn.innerHTML = originalText;
@@ -2434,6 +2450,8 @@ function handleAuthSubmit() {
     }, 800);
 }
 
+// CO4: JavaScript Interactivity, DOM & Events
+// CO4: DOM manipulation
 function setupUserUI(user) {
     document.getElementById('user-name').textContent = user.fullname;
     document.getElementById('user-role').textContent = user.role;
@@ -2455,9 +2473,8 @@ function setupUserUI(user) {
 function handleLogout() {
     if (confirm('Are you sure you want to sign out?')) {
         store.logout();
-        // Reset to default admin credentials
-        document.getElementById('login-username').value = 'admin';
-        document.getElementById('login-password').value = 'admin';
+        // Reset to default learner/student credentials
+        setLoginRole('student');
     }
 }
 
@@ -2545,13 +2562,18 @@ function runCompilerCode() {
                 <style>${css}</style>
             </head>
             <body>
+// CO1: Internet Fundamentals, HTML & Introductory CSS Styling
+// CO1: Web client-server architecture
+// CO4: JavaScript Interactivity, DOM & Events
+// CO4: DOM manipulation
                 ${html}
                 <script>${js}<\/script>
             </body>
         </html>
     `;
-    /* Topic: Web client-server architecture | CO Number: CO1 */
-    /* Topic: Browser basics | CO Number: CO1 */
+    /* CO1: Web client-server architecture */
+    /* CO1: Browser basics */
+    /* CO4: DOM manipulation */
     const doc = preview.contentDocument || preview.contentWindow.document;
     doc.open();
     doc.write(combinedCode);
@@ -2575,21 +2597,25 @@ function renderDashboard() {
         const pct = courseModules.length > 0 ? Math.round((completedInCourse / courseModules.length) * 100) : 0;
 
         return `
-    <div class="flex items-center space-x-4 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition border border-transparent hover:border-slate-100" onclick="startCourse('${c.id}')">
-                <div class="w-12 h-12 rounded-lg bg-cover bg-center shadow-sm" style="background-image: url('${c.image}')"></div>
+            <div class="flex items-center space-x-5 p-4 hover:bg-slate-50/50 rounded-2xl cursor-pointer transition-all border border-slate-100/50 hover:border-slate-200 shadow-sm" onclick="startCourse('${c.id}')">
+                <div class="w-14 h-14 rounded-xl bg-cover bg-center shadow-sm border border-slate-100" style="background-image: url('${c.image}')"></div>
                 <div class="flex-1">
-                    <h4 class="font-bold text-slate-900 text-sm">${c.title}</h4>
-                    <div class="w-full bg-slate-100 h-1.5 mt-2 rounded-full overflow-hidden">
-                        <div class="bg-primary h-full transition-all duration-500" style="width: ${pct}%"></div>
+                    <h4 class="font-black text-slate-800 text-sm tracking-tight">${c.title}</h4>
+                    <div class="flex items-center space-x-3 mt-2">
+                        <div class="flex-1 bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-primary h-full transition-all duration-700 shadow-[0_0_8px_rgba(8,145,178,0.3)]" style="width: ${pct}%"></div>
+                        </div>
+                        <span class="text-[10px] font-black text-primary w-8">${pct}%</span>
                     </div>
                 </div>
-                <i data-lucide="chevron-right" class="w-5 h-5 text-slate-400"></i>
+                <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300"></i>
             </div>
     `;
     }).join('');
     lucide.createIcons();
 
     // Chart (Mock Data)
+    // CO4: JavaScript Interactivity (Data Representation)
     initChart(progress);
 }
 
@@ -2658,21 +2684,22 @@ function renderCourses() {
     container.innerHTML = COURSES.map(c => {
         const courseModules = MODULES.filter(m => m.courseId === c.id);
         return `
-    <div class="bg-white border border-slate-100 shadow-sm course-card rounded-3xl flex flex-col overflow-hidden transition-all">
-                <div class="course-image" style="background-image: url('${c.image}')"></div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs font-black text-primary bg-primary/10 px-3 py-1 rounded-lg uppercase tracking-wider">${c.category}</span>
-                        <span class="text-xs font-bold text-slate-400">${c.level}</span>
+            <div class="bg-white border border-slate-100 shadow-xl shadow-slate-200/50 rounded-[2.5rem] flex flex-col overflow-hidden transition-all hover:shadow-2xl hover:shadow-primary/5 group">
+                <div class="h-64 bg-cover bg-center relative" style="background-image: url('${c.image}')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+                </div>
+                <div class="p-8 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-[10px] font-black text-primary bg-primary/10 px-4 py-1.5 rounded-lg uppercase tracking-[0.2em] border border-primary/5">${c.category}</span>
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1.5 rounded-lg">${c.level}</span>
                     </div>
-                    <h3 class="text-xl font-black text-slate-900 mb-3">${c.title}</h3>
-                    <p class="text-slate-500 font-medium text-sm flex-1 mb-6">${c.description}</p>
-                    <div class="flex items-center text-xs font-bold text-slate-400 mb-6">
-                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i> ${c.duration}
-                        <span class="mx-3 text-slate-200">|</span>
-                        <i data-lucide="book" class="w-4 h-4 mr-2"></i> ${courseModules.length} Modules
+                    <h3 class="text-2xl font-black text-slate-900 mb-4 tracking-tight leading-tight">${c.title}</h3>
+                    <p class="text-slate-500 font-medium text-sm flex-1 mb-8 leading-relaxed opacity-80">${c.description}</p>
+                    <div class="flex items-center gap-6 text-[10px] font-black text-slate-400 uppercase tracking-widest mb-8 border-t border-slate-50 pt-8">
+                        <span class="flex items-center"><i data-lucide="clock" class="w-4 h-4 mr-2 text-primary/50"></i> ${c.duration}</span>
+                        <span class="flex items-center"><i data-lucide="layers" class="w-4 h-4 mr-2 text-emerald-500/50"></i> ${courseModules.length} Modules</span>
                     </div>
-                    <button onclick="startCourse('${c.id}')" class="w-full bg-slate-900 hover:bg-primary text-white py-3 rounded-xl font-bold transition-all transform hover:-translate-y-1">Continue Learning</button>
+                    <button onclick="startCourse('${c.id}')" class="w-full bg-slate-900 hover:bg-primary text-white py-4 rounded-2xl font-black transition-all transform hover:-translate-y-1 shadow-xl shadow-slate-900/10">Initiate Course</button>
                 </div>
             </div>
     `;
@@ -2711,36 +2738,50 @@ function renderCurriculum() {
     }).join('');
     lucide.createIcons();
 
+    // CO4: DOM manipulation
     // Load Content
     const module = filteredModules[currentModuleIndex];
     document.getElementById('module-content').innerHTML = `
-    <h1 class="text-4xl font-black text-slate-900 mb-6 tracking-tight">${module.title}</h1>
-        <div class="text-slate-600 space-y-4 font-medium leading-relaxed">
-            ${module.content}
-        </div>
-        <div class="mt-12 flex flex-col md:flex-row gap-6">
-            ${QUIZZES[module.id] ? `
-                <div class="flex-1 p-8 bg-emerald-50 border border-emerald-100 rounded-3xl flex items-center justify-between">
-                    <div>
-                        <h4 class="text-lg font-black text-slate-900 mb-1">Concept Quiz</h4>
-                        <p class="text-slate-500 text-sm font-medium">Verify your understanding of this topic.</p>
-                    </div>
-                    <button onclick="startQuiz('${module.id}')" class="bg-emerald-600 text-white px-8 py-3 rounded-2xl font-black hover:shadow-lg hover:shadow-emerald-300/30 transition-all flex items-center">
-                        <i data-lucide="help-circle" class="w-5 h-5 mr-2"></i> Take Quiz
-                    </button>
+        <div class="space-y-12">
+            <header>
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="px-4 py-1.5 bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] rounded-full">Module ${currentModuleIndex + 1}</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-slate-200"></span>
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">${module.category}</span>
                 </div>
-            ` : ''}
-            ${module.problemId ? `
-                <div class="flex-1 p-8 bg-primary/5 border border-primary/10 rounded-3xl flex items-center justify-between">
-                    <div>
-                        <h4 class="text-lg font-black text-slate-900 mb-1">Coding Practice</h4>
-                        <p class="text-slate-500 text-sm font-medium">Solve the interactive practice problem.</p>
+                <h1 class="text-5xl font-black text-slate-900 mb-8 tracking-tight leading-[1.05]">${module.title}</h1>
+            </header>
+            
+            <div class="text-slate-600 space-y-6 font-medium text-lg leading-relaxed opacity-90 prose prose-slate max-w-none">
+                ${module.content}
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-12 border-t border-slate-100">
+                ${QUIZZES[module.id] ? `
+                    <div class="group p-10 bg-white border border-slate-100 shadow-xl shadow-slate-200/50 rounded-[2.5rem] flex flex-col items-start transition-all hover:border-emerald-200">
+                        <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-8 transform transition-transform group-hover:scale-110">
+                            <i data-lucide="help-circle" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="text-2xl font-black text-slate-900 mb-3 tracking-tight">Knowledge Check</h4>
+                        <p class="text-slate-500 font-medium mb-10 leading-relaxed">Validate your mastery of ${module.category.toLowerCase()} concepts.</p>
+                        <button onclick="startQuiz('${module.id}')" class="mt-auto w-full bg-emerald-500 text-white px-8 py-4 rounded-2xl font-black hover:bg-emerald-600 transition-all shadow-xl shadow-emerald-500/10 flex items-center justify-center">
+                             Engage Quiz
+                        </button>
                     </div>
-                    <button onclick="openEditor('${module.problemId}')" class="bg-primary text-white px-8 py-3 rounded-2xl font-black hover:shadow-lg hover:shadow-primary/30 transition-all flex items-center">
-                        <i data-lucide="code-2" class="w-5 h-5 mr-2"></i> Solve Problem
-                    </button>
-                </div>
-            ` : ''}
+                ` : ''}
+                ${module.problemId ? `
+                    <div class="group p-10 bg-white border border-slate-100 shadow-xl shadow-slate-200/50 rounded-[2.5rem] flex flex-col items-start transition-all hover:border-primary/40">
+                        <div class="w-16 h-16 bg-primary/5 text-primary rounded-2xl flex items-center justify-center mb-8 transform transition-transform group-hover:scale-110">
+                            <i data-lucide="terminal" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="text-2xl font-black text-slate-900 mb-3 tracking-tight">Active Forge</h4>
+                        <p class="text-slate-500 font-medium mb-10 leading-relaxed">Apply your learning in our interactive code laboratory.</p>
+                        <button onclick="openEditor('${module.problemId}')" class="mt-auto w-full bg-slate-900 text-white px-8 py-4 rounded-2xl font-black hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10 flex items-center justify-center">
+                            Launch Lab
+                        </button>
+                    </div>
+                ` : ''}
+            </div>
         </div>
 `;
 
@@ -2779,21 +2820,22 @@ function renderProblems() {
         const isSolved = progress.problems.find(prob => prob.id === p.id);
         const difficultyClass = `difficulty-${p.difficulty.toLowerCase()}`;
         return `
-    <div class="bg-white border border-slate-100 shadow-sm p-5 rounded-3xl flex items-center justify-between problem-item cursor-pointer hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-slate-200/50" onclick="openEditor('${p.id}')">
-                <div class="flex items-center space-x-5">
-                    <div class="w-12 h-12 rounded-2xl ${isSolved ? 'bg-emerald-100 text-emerald-600' : 'bg-slate-100 text-slate-400'} flex items-center justify-center">
-                        <i data-lucide="${isSolved ? 'check-circle' : 'code-2'}" class="w-6 h-6"></i>
+            <div class="bg-white border border-slate-100 shadow-xl shadow-slate-200/40 p-10 rounded-[2.5rem] flex flex-col items-start problem-item cursor-pointer hover:border-primary/40 transition-all hover:shadow-2xl group" onclick="openEditor('${p.id}')">
+                <div class="flex justify-between items-start w-full mb-8">
+                    <div class="w-16 h-16 rounded-3xl ${isSolved ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-400'} flex items-center justify-center mb-6 transform transition-transform group-hover:scale-110 group-hover:rotate-3 shadow-inner">
+                        <i data-lucide="${isSolved ? 'award' : 'binary'}" class="w-8 h-8"></i>
                     </div>
-                    <div>
-                        <h4 class="font-bold text-slate-900 text-lg">${p.title}</h4>
-                        <div class="flex space-x-2 mt-2">
-                            ${p.tags.map(t => `<span class="text-[10px] font-bold bg-slate-50 px-2.5 py-1 rounded-lg text-slate-500 uppercase tracking-widest">${t}</span>`).join('')}
-                        </div>
-                    </div>
+                    <span class="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] ${difficultyClass}">${p.difficulty}</span>
                 </div>
-                <div class="flex items-center space-x-6">
-                    <span class="difficulty-badge ${difficultyClass}">${p.difficulty}</span>
-                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-300"></i>
+                <h4 class="font-black text-slate-900 text-2xl mb-4 tracking-tight leading-none">${p.title}</h4>
+                <div class="flex flex-wrap gap-2 mb-10 min-h-[1.5rem]">
+                    ${p.tags.map(t => `<span class="text-[9px] font-black bg-slate-100/50 px-3 py-1 rounded-lg text-slate-500 uppercase tracking-widest border border-slate-100">${t}</span>`).join('')}
+                </div>
+                <div class="mt-auto w-full pt-8 border-t border-slate-50 flex items-center justify-between">
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">${isSolved ? 'Completed' : 'Draft Ready'}</span>
+                    <button class="p-3 bg-slate-950 text-white rounded-2xl group-hover:bg-primary transition-colors shadow-lg shadow-slate-900/10">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
                 </div>
             </div>
     `;
@@ -3101,7 +3143,7 @@ function renderAdminDashboard() {
 
         activityContainer.innerHTML = activityItems.length > 0
             ? activityItems.slice(-5).reverse().join('')
-            : `<p class="text-slate-400 text-sm text-center py-6">No recent activity yet.</p>`;
+            : `<p class="text-slate-400 text-sm font-bold text-center py-10 opacity-50 uppercase tracking-[0.2em]">Zero Feed Data</p>`;
     }
 
     lucide.createIcons();
@@ -3119,19 +3161,19 @@ function renderTests() {
     if (!container) return;
 
     container.innerHTML = TESTS.map(t => `
-        <div class="bg-white border border-slate-100 shadow-sm p-8 rounded-3xl flex flex-col items-center text-center transition-all hover:shadow-xl hover:shadow-slate-200/50">
-            <div class="w-16 h-16 bg-${t.color}-500/10 text-${t.color}-600 rounded-2xl flex items-center justify-center mb-6">
-                <i data-lucide="${t.icon}" class="w-8 h-8"></i>
+        <div class="bg-white border border-slate-100 shadow-xl shadow-slate-200/50 p-10 rounded-[3rem] flex flex-col items-center text-center transition-all hover:shadow-2xl hover:shadow-primary/5 group">
+            <div class="w-24 h-24 bg-${t.color}-500/10 text-${t.color}-600 rounded-[2rem] flex items-center justify-center mb-8 transform transition-all group-hover:scale-110 group-hover:rotate-3 shadow-inner">
+                <i data-lucide="${t.icon}" class="w-12 h-12"></i>
             </div>
-            <h3 class="text-xl font-black text-slate-900 mb-2">${t.title}</h3>
-            <div class="flex items-center space-x-3 text-xs font-bold text-slate-400 mb-6 uppercase tracking-widest">
+            <h3 class="text-2xl font-black text-slate-900 mb-4 tracking-tight leading-none">${t.title}</h3>
+            <div class="flex items-center gap-4 text-[10px] font-black text-slate-400 mb-10 uppercase tracking-[0.2em] bg-slate-50 px-5 py-2 rounded-full">
                 <span>${t.questions} Qs</span>
-                <span>•</span>
+                <span class="w-1 h-1 bg-slate-200 rounded-full"></span>
                 <span>${t.duration}</span>
-                <span>•</span>
+                <span class="w-1 h-1 bg-slate-200 rounded-full"></span>
                 <span>${t.level}</span>
             </div>
-            <button onclick="startTest('${t.id}')" class="w-full bg-slate-900 hover:bg-primary text-white font-bold py-3 rounded-xl transition-all transform hover:-translate-y-1">Start Assessment</button>
+            <button onclick="startTest('${t.id}')" class="w-full bg-slate-900 group-hover:bg-primary text-white font-black py-4 rounded-2xl transition-all transform hover:-translate-y-1 shadow-xl shadow-slate-900/10">Initiate Assessment</button>
         </div>
     `).join('');
     lucide.createIcons();
@@ -3184,7 +3226,8 @@ function startQuiz(moduleId, source = 'curriculum') {
     if (quizContent) quizContent.classList.remove('hidden');
     if (quizResults) quizResults.classList.add('hidden');
 
-    /* Topic: DOM & Events | CO Number: CO4 */
+    // CO4: JavaScript Interactivity, DOM & Events
+    // CO4: DOM & Events
     renderQuizQuestion();
     navigateTo('quiz');
 }
@@ -3215,12 +3258,14 @@ function renderQuizQuestion() {
 
     optionsEl.innerHTML = q.options.map((opt, idx) => `
         <button onclick="handleQuizAnswer(${idx})" 
-            class="quiz-option group w-full text-left p-5 border-2 border-slate-100 rounded-2xl font-bold flex items-center justify-between transition-all hover:border-primary hover:bg-primary/5">
+            class="quiz-option group w-full text-left p-6 border-2 border-slate-50 rounded-[1.5rem] font-bold flex items-center justify-between transition-all hover:border-primary hover:bg-primary/5 hover:translate-x-1">
             <span class="flex items-center">
-                <span class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 mr-4 group-hover:bg-primary group-hover:text-white transition-colors">${String.fromCharCode(65 + idx)}</span>
-                <span class="text-slate-700">${opt}</span>
+                <span class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 mr-5 group-hover:bg-primary group-hover:text-white transition-all font-black text-sm">${String.fromCharCode(65 + idx)}</span>
+                <span class="text-slate-700 text-lg font-black tracking-tight">${opt}</span>
             </span>
-            <i data-lucide="chevron-right" class="w-5 h-5 text-slate-300 group-hover:text-primary opacity-0 group-hover:opacity-100 transition-all"></i>
+            <div class="p-2 rounded-lg bg-slate-50 group-hover:bg-primary/20 transition-all opacity-0 group-hover:opacity-100">
+                <i data-lucide="arrow-right" class="w-4 h-4 text-primary"></i>
+            </div>
         </button>
     `).join('');
     lucide.createIcons();
@@ -3254,7 +3299,8 @@ function showQuizResults() {
     }
 
     // Complete module on success?
-    /* Topic: Storage & Async Programming | CO Number: CO4 */
+    // CO5: Storage & Async Programming
+    // CO4: JavaScript Interactivity (Storage)
     if (quizState.score === quizState.questions.length && !quizState.moduleId.startsWith('test-')) {
         store.completeModule(quizState.moduleId);
     }
@@ -3273,6 +3319,8 @@ function renderLeaderboard() {
         return { user, score };
     });
 
+    // CO3: JavaScript Programming Essentials
+    // CO3: Objects & Arrays (Sorting)
     // Sort descending by score
     leaderboardData.sort((a, b) => b.score - a.score);
 
@@ -3281,32 +3329,30 @@ function renderLeaderboard() {
         const rank = index + 1;
         const isCurrentUser = store.getCurrentUser() && store.getCurrentUser().id === data.user.id;
 
-        let rankBadge = `<span class="text-slate-500 font-bold">#${rank}</span>`;
-        if (rank === 1) rankBadge = `<span class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm mx-auto"><i data-lucide="crown" class="w-4 h-4"></i></span>`;
-        if (rank === 2) rankBadge = `<span class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-sm mx-auto">#2</span>`;
-        if (rank === 3) rankBadge = `<span class="w-8 h-8 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-sm mx-auto">#3</span>`;
+        let rankBadge = `<span class="text-slate-400 font-bold text-lg">#${rank}</span>`;
+        if (rank === 1) rankBadge = `<span class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center shadow-sm border border-amber-100 mx-auto"><i data-lucide="crown" class="w-5 h-5"></i></span>`;
 
         const row = document.createElement('div');
-        row.className = `grid grid-cols-12 gap-4 p-4 items-center transition-colors hover:bg-slate-50 text-center ${isCurrentUser ? 'bg-primary/5' : ''}`;
+        row.className = `grid grid-cols-12 gap-4 px-8 py-6 items-center transition-all hover:bg-slate-50/80 ${isCurrentUser ? 'bg-cyan-50/30' : ''}`;
 
         row.innerHTML = `
-            <div class="col-span-2">
+            <div class="col-span-2 text-center">
                 ${rankBadge}
             </div>
             <div class="col-span-6 flex items-center text-left">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-indigo-600 text-white flex items-center justify-center font-bold mr-4 shadow-md">
+                <div class="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center font-black text-xl shadow-lg shadow-primary/20 mr-5">
                     ${data.user.fullname.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                    <div class="font-bold text-slate-800 flex items-center gap-2">
+                    <div class="font-black text-slate-800 text-lg flex items-center gap-2">
                         ${data.user.fullname}
-                        ${isCurrentUser ? '<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full uppercase tracking-wider">You</span>' : ''}
+                        ${isCurrentUser ? '<span class="text-[10px] bg-cyan-100 text-cyan-600 px-3 py-1 rounded-full font-black uppercase tracking-widest">You</span>' : ''}
                     </div>
-                    <div class="text-xs text-slate-400">@${data.user.username}</div>
+                    <div class="text-sm text-slate-400 font-medium">@${data.user.username}</div>
                 </div>
             </div>
-            <div class="col-span-4">
-                <div class="inline-flex items-center px-3 py-1 bg-green-50 text-green-600 rounded-full font-bold">
+            <div class="col-span-4 text-center">
+                <div class="inline-flex items-center px-5 py-2 bg-emerald-50 text-emerald-600 rounded-full font-black text-sm border border-emerald-100 shadow-sm">
                     <i data-lucide="check-circle-2" class="w-4 h-4 mr-2"></i>
                     ${data.score} Solved
                 </div>
